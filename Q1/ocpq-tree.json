@@ -1,0 +1,48 @@
+{
+  "nodes": [
+    {
+      "Box": [
+        {
+          "newEventVars": {},
+          "newObjectVars": {
+            "0": [
+              "orders"
+            ],
+            "1": [
+              "items"
+            ]
+          },
+          "filters": [
+            {
+              "type": "ObjectAttributeValueFilter",
+              "object": 0,
+              "attribute_name": "price",
+              "at_time": {
+                "type": "Always"
+              },
+              "value_filter": {
+                "type": "Integer",
+                "min": 1500,
+                "max": null
+              }
+            },
+            {
+              "type": "O2O",
+              "object": 0,
+              "other_object": 1,
+              "qualifier": null,
+              "filterLabel": null
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        []
+      ]
+    }
+  ],
+  "edgeNames": []
+}

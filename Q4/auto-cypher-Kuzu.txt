@@ -1,0 +1,4 @@
+MATCH (o1:customers)-[:O2O]->(o2:employees)
+WHERE COUNT {MATCH (o1:customers)-[:O2O]->(o3:orders)
+} >= 70
+RETURN o2.id,o1.id

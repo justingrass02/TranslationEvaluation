@@ -1,0 +1,66 @@
+{
+  "nodes": [
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "0": [
+              "O_Created"
+            ],
+            "1": [
+              "O_Created"
+            ]
+          },
+          "newObjectVars": {
+            "0": [
+              "Application"
+            ],
+            "2": [
+              "Offer"
+            ],
+            "1": [
+              "Offer"
+            ]
+          },
+          "filters": [
+            {
+              "type": "O2O",
+              "object": 0,
+              "other_object": 1,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2O",
+              "object": 0,
+              "other_object": 2,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2E",
+              "object": 1,
+              "event": 0,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2E",
+              "object": 2,
+              "event": 1,
+              "qualifier": null,
+              "filterLabel": null
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        []
+      ]
+    }
+  ],
+  "edgeNames": []
+}

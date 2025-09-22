@@ -1,0 +1,2 @@
+MATCH (e1:placeorder)-[:E2O]->(o1:orders)
+RETURN o1.id,e1.id

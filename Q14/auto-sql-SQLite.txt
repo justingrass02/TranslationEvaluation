@@ -1,0 +1,33 @@
+SELECT O2.ocel_id AS "O2",O1.ocel_id AS "O1",O3.ocel_id AS "O3",E1.ocel_id AS "E1",E2.ocel_id AS "E2"
+,
+CASE WHEN NOT EXISTS (SELECT 1 FROM (SELECT CASE WHEN strftime('%s', E4.ocel_time) - strftime('%s', E3.ocel_time) >= 1 THEN 1 ELSE 0 END AS satisfied,
+(E4.ocel_id || '|' || E3.ocel_id) AS cnt_key
+FROM "event_ConfirmOrder" AS E3
+INNER JOIN event_object AS E2O2 ON E2O2.ocel_object_id = O2.ocel_id AND E2O2.ocel_event_id = E3.ocel_id
+INNER JOIN event_object AS E2O3 ON E2O3.ocel_object_id = O3.ocel_id
+INNER JOIN "event_ConfirmOrder" AS E4 ON E2O3.ocel_event_id = E4.ocel_id
+) AS subqC_0_0_A WHERE subqC_0_0_A.satisfied = 0) THEN 1 ELSE 0 END AS satisfied 
+FROM "event_PlaceOrder" AS E1
+INNER JOIN event_object AS E2O0 ON E2O0.ocel_event_id = E1.ocel_id
+INNER JOIN "object_Orders" AS O2 ON E2O0.ocel_object_id = O2.ocel_id
+INNER JOIN object_object AS O2O0 ON O2O0.ocel_target_id = O2.ocel_id
+INNER JOIN "object_Customers" AS O1 ON O2O0.ocel_source_id = O1.ocel_id
+INNER JOIN object_object AS O2O1 ON O2O1.ocel_source_id = O1.ocel_id
+INNER JOIN "object_Orders" AS O3 ON O2O1.ocel_target_id = O3.ocel_id
+INNER JOIN event_object AS E2O1 ON E2O1.ocel_object_id = O3.ocel_id
+INNER JOIN "event_PlaceOrder" AS E2 ON E2O1.ocel_event_id = E2.ocel_id
+WHERE strftime('%s', E2.ocel_time) - strftime('%s', E1.ocel_time) >= 1
+AND COALESCE((SELECT COUNT(DISTINCT subqC_0_1_B.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
+(E6.ocel_id || '|' || E5.ocel_id) AS cnt_key
+FROM "event_PayOrder" AS E5
+INNER JOIN event_object AS E2O2 ON E2O2.ocel_object_id = O2.ocel_id AND E2O2.ocel_event_id = E5.ocel_id
+INNER JOIN event_object AS E2O3 ON E2O3.ocel_object_id = O3.ocel_id
+INNER JOIN "event_PayOrder" AS E6 ON E2O3.ocel_event_id = E6.ocel_id
+WHERE strftime('%s', E5.ocel_time) - strftime('%s', E1.ocel_time) >= 0
+AND strftime('%s', E5.ocel_time) - strftime('%s', E1.ocel_time) <= 172800
+AND strftime('%s', E6.ocel_time) - strftime('%s', E2.ocel_time) >= 0
+AND strftime('%s', E6.ocel_time) - strftime('%s', E2.ocel_time) <= 172800
+) AS subqC_0_1_B), 0) >= 0
+AND O2.ocel_changed_field IS NULL
+AND O1.ocel_changed_field IS NULL
+AND O3.ocel_changed_field IS NULL

@@ -1,0 +1,76 @@
+{
+  "nodes": [
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "0": [
+              "place order"
+            ],
+            "1": [
+              "pick item"
+            ]
+          },
+          "newObjectVars": {
+            "0": [
+              "orders"
+            ],
+            "2": [
+              "items"
+            ],
+            "3": [
+              "customers"
+            ],
+            "1": [
+              "employees"
+            ]
+          },
+          "filters": [
+            {
+              "type": "O2E",
+              "object": 0,
+              "event": 0,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2O",
+              "object": 0,
+              "other_object": 2,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2E",
+              "object": 3,
+              "event": 0,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2O",
+              "object": 3,
+              "other_object": 1,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2E",
+              "object": 2,
+              "event": 1,
+              "qualifier": null,
+              "filterLabel": null
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        []
+      ]
+    }
+  ],
+  "edgeNames": []
+}

@@ -1,0 +1,217 @@
+{
+  "nodes": [
+    {
+      "Box": [
+        {
+          "newEventVars": {},
+          "newObjectVars": {
+            "0": [
+              "customers"
+            ]
+          },
+          "filters": [],
+          "sizeFilters": [],
+          "constraints": [
+            {
+              "type": "SAT",
+              "child_names": [
+                "A"
+              ]
+            }
+          ],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        [
+          1
+        ]
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {},
+          "newObjectVars": {
+            "1": [
+              "orders"
+            ]
+          },
+          "filters": [
+            {
+              "type": "O2O",
+              "object": 0,
+              "other_object": 1,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "ObjectAttributeValueFilter",
+              "object": 1,
+              "attribute_name": "price",
+              "at_time": {
+                "type": "Sometime"
+              },
+              "value_filter": {
+                "type": "Integer",
+                "min": 1000,
+                "max": null
+              }
+            }
+          ],
+          "sizeFilters": [
+            {
+              "type": "NumChilds",
+              "child_name": "C",
+              "min": 1,
+              "max": null
+            }
+          ],
+          "constraints": [
+            {
+              "type": "SizeFilter",
+              "filter": {
+                "type": "NumChilds",
+                "child_name": "B",
+                "min": 0,
+                "max": 0
+              }
+            }
+          ],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        [
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "1": [
+              "payment reminder"
+            ],
+            "0": [
+              "confirm order"
+            ]
+          },
+          "newObjectVars": {},
+          "filters": [
+            {
+              "type": "O2E",
+              "object": 1,
+              "event": 0,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2E",
+              "object": 1,
+              "event": 1,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "TimeBetweenEvents",
+              "from_event": 1,
+              "to_event": 0,
+              "min_seconds": 0.0,
+              "max_seconds": null
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        []
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {},
+          "newObjectVars": {},
+          "filters": [],
+          "sizeFilters": [
+            {
+              "type": "NumChilds",
+              "child_name": "D",
+              "min": 2,
+              "max": null
+            }
+          ],
+          "constraints": [],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        [
+          4
+        ]
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "0": [
+              "payment reminder"
+            ]
+          },
+          "newObjectVars": {},
+          "filters": [
+            {
+              "type": "O2E",
+              "object": 1,
+              "event": 0,
+              "qualifier": null,
+              "filterLabel": null
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        []
+      ]
+    }
+  ],
+  "edgeNames": [
+    [
+      [
+        1,
+        2
+      ],
+      "B"
+    ],
+    [
+      [
+        0,
+        1
+      ],
+      "A"
+    ],
+    [
+      [
+        3,
+        4
+      ],
+      "D"
+    ],
+    [
+      [
+        1,
+        3
+      ],
+      "C"
+    ]
+  ]
+}

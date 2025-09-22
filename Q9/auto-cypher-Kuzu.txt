@@ -1,0 +1,6 @@
+MATCH (o1:customers)-[:O2O]->(o2:employees)
+WHERE COUNT {MATCH (o1:customers)-[:O2O]->(o3:orders)
+WHERE COUNT {MATCH (o3:orders)-[:O2O]->(o4:items)
+} >= 3
+} >= 2
+RETURN o1.id,o2.id

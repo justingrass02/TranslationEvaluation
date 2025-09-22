@@ -1,0 +1,18 @@
+SELECT O1.ocel_id AS "O1",E1.ocel_id AS "E1"
+,
+CASE WHEN NOT EXISTS (SELECT 1 FROM (SELECT CASE WHEN EPOCH(E2.ocel_time) - EPOCH(E1.ocel_time) >= 0 AND EPOCH(E2.ocel_time) - EPOCH(E1.ocel_time) <= 60 THEN 1 ELSE 0 END AS satisfied,
+E2.ocel_id AS cnt_key
+FROM "event_O_Sent (mail and online)" AS E2
+INNER JOIN event_object AS E2O1 ON E2O1.ocel_object_id = O1.ocel_id AND E2O1.ocel_event_id = E2.ocel_id
+) AS subqC_0_0_A WHERE subqC_0_0_A.satisfied = 0) THEN 1 ELSE 0 END AS satisfied 
+FROM "event_O_Created" AS E1
+INNER JOIN event_object AS E2O0 ON E2O0.ocel_event_id = E1.ocel_id
+INNER JOIN "object_Offer" AS O1 ON E2O0.ocel_object_id = O1.ocel_id
+WHERE COALESCE((SELECT COUNT(DISTINCT subqC_0_1_B.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
+E2.ocel_id AS cnt_key
+FROM "event_O_Returned" AS E2
+INNER JOIN event_object AS E2O1 ON E2O1.ocel_object_id = O1.ocel_id AND E2O1.ocel_event_id = E2.ocel_id
+WHERE EPOCH(E2.ocel_time) - EPOCH(E1.ocel_time) >= 259200
+AND EPOCH(E2.ocel_time) - EPOCH(E1.ocel_time) <= 432000
+) AS subqC_0_1_B), 0) >= 1
+AND O1.ocel_changed_field IS NULL

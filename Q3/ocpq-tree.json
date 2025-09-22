@@ -1,0 +1,191 @@
+{
+  "nodes": [
+    {
+      "Box": [
+        {
+          "newEventVars": {},
+          "newObjectVars": {
+            "0": [
+              "orders"
+            ]
+          },
+          "filters": [],
+          "sizeFilters": [],
+          "constraints": [
+            {
+              "type": "OR",
+              "child_names": [
+                "A",
+                "B"
+              ]
+            }
+          ],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        [
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "2": [
+              "confirm order"
+            ]
+          },
+          "newObjectVars": {},
+          "filters": [
+            {
+              "type": "O2E",
+              "object": 0,
+              "event": 2,
+              "qualifier": null,
+              "filterLabel": null
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [
+            {
+              "type": "SizeFilter",
+              "filter": {
+                "type": "NumChilds",
+                "child_name": "X",
+                "min": 1,
+                "max": null
+              }
+            }
+          ],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        [
+          2
+        ]
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "3": [
+              "pay order"
+            ]
+          },
+          "newObjectVars": {},
+          "filters": [
+            {
+              "type": "O2E",
+              "object": 0,
+              "event": 3,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "TimeBetweenEvents",
+              "from_event": 2,
+              "to_event": 3,
+              "min_seconds": 0.0,
+              "max_seconds": 925344.0
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        []
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {},
+          "newObjectVars": {},
+          "filters": [],
+          "sizeFilters": [],
+          "constraints": [
+            {
+              "type": "SizeFilter",
+              "filter": {
+                "type": "NumChilds",
+                "child_name": "Y",
+                "min": 1,
+                "max": null
+              }
+            }
+          ],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        [
+          4
+        ]
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "1": [
+              "payment reminder"
+            ]
+          },
+          "newObjectVars": {},
+          "filters": [
+            {
+              "type": "O2E",
+              "object": 0,
+              "event": 1,
+              "qualifier": null,
+              "filterLabel": null
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        []
+      ]
+    }
+  ],
+  "edgeNames": [
+    [
+      [
+        0,
+        3
+      ],
+      "B"
+    ],
+    [
+      [
+        0,
+        1
+      ],
+      "A"
+    ],
+    [
+      [
+        3,
+        4
+      ],
+      "Y"
+    ],
+    [
+      [
+        1,
+        2
+      ],
+      "X"
+    ]
+  ]
+}

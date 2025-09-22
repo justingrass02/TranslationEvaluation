@@ -1,0 +1,10 @@
+SELECT O1.ocel_id AS "O1",O2.ocel_id AS "O2"
+FROM "object_Orders" AS O1
+INNER JOIN object_object AS O2O0 ON O2O0.ocel_source_id = O1.ocel_id
+INNER JOIN "object_Items" AS O2 ON O2O0.ocel_target_id = O2.ocel_id
+WHERE NOT EXISTS (SELECT 1
+ FROM "object_Orders" AS OA0
+ WHERE OA0.ocel_id = O1.ocel_id AND NOT (OA0.price >= 1500)
+                            )
+AND O1.ocel_changed_field IS NULL
+AND O2.ocel_changed_field IS NULL

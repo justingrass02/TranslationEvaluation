@@ -1,0 +1,5 @@
+MATCH (e1:o_Created)-[:E2O]->(o1:Offer)
+WHERE COUNT {MATCH (e2:O_Returned)-[:E2O]->(o1:Offer)
+WHERE e2.time >= e1.time + INTERVAL('259200 SECONDS') AND e2.time <= e1.time + INTERVAL('432000 SECONDS')
+} >= 1
+RETURN o1.id,e1.id

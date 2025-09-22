@@ -1,0 +1,2 @@
+MATCH (o1:orders)-[:O2O]->(o2:items)
+RETURN o1.id,o2.id

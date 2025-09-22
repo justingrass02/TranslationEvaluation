@@ -1,0 +1,151 @@
+{
+  "nodes": [
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "0": [
+              "Register Customer Order"
+            ]
+          },
+          "newObjectVars": {
+            "0": [
+              "Customer Order"
+            ]
+          },
+          "filters": [
+            {
+              "type": "O2E",
+              "object": 0,
+              "event": 0,
+              "qualifier": null,
+              "filterLabel": null
+            }
+          ],
+          "sizeFilters": [
+            {
+              "type": "NumChilds",
+              "child_name": "A",
+              "min": 1,
+              "max": null
+            }
+          ],
+          "constraints": [],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        [
+          1
+        ]
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "1": [
+              "Create Transport Document"
+            ]
+          },
+          "newObjectVars": {
+            "1": [
+              "Transport Document"
+            ]
+          },
+          "filters": [
+            {
+              "type": "O2O",
+              "object": 0,
+              "other_object": 1,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2E",
+              "object": 1,
+              "event": 1,
+              "qualifier": null,
+              "filterLabel": null
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        [
+          2
+        ]
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "2": [
+              "Book Vehicles"
+            ],
+            "3": [
+              "Order Empty Containers"
+            ]
+          },
+          "newObjectVars": {
+            "3": [
+              "Container"
+            ],
+            "2": [
+              "Truck"
+            ]
+          },
+          "filters": [
+            {
+              "type": "O2E",
+              "object": 1,
+              "event": 2,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2E",
+              "object": 1,
+              "event": 3,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2E",
+              "object": 3,
+              "event": 3,
+              "qualifier": null,
+              "filterLabel": null
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        []
+      ]
+    }
+  ],
+  "edgeNames": [
+    [
+      [
+        0,
+        1
+      ],
+      "A"
+    ],
+    [
+      [
+        1,
+        2
+      ],
+      "B"
+    ]
+  ]
+}

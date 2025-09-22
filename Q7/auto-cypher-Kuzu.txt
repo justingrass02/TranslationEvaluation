@@ -1,0 +1,5 @@
+MATCH (e1:A_CreateApplication)-[:E2O]->(o1:application)
+WHERE COUNT {MATCH (e2:A_Submitted)-[:E2O]->(o1:application)
+WHERE e2.time >= e1.time + INTERVAL('0 SECONDS') AND e2.time <= e1.time + INTERVAL('1 SECONDS')
+} >= 1
+RETURN o1.id,e1.id

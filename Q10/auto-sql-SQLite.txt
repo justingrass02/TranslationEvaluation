@@ -1,0 +1,12 @@
+SELECT O1.ocel_id AS "O1",E1.ocel_id AS "E1"
+FROM "event_RegisterCustomerOrder" AS E1
+INNER JOIN event_object AS E2O0 ON E2O0.ocel_event_id = E1.ocel_id
+INNER JOIN "object_CustomerOrder" AS O1 ON E2O0.ocel_object_id = O1.ocel_id
+WHERE COALESCE((SELECT COUNT(DISTINCT subqC_0_0_A.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
+(O2.ocel_id || '|' || E2.ocel_id) AS cnt_key
+FROM "object_TransportDocument" AS O2
+INNER JOIN object_object AS O2O0 ON O2O0.ocel_source_id = O1.ocel_id AND O2O0.ocel_target_id = O2.ocel_id
+INNER JOIN event_object AS E2O1 ON E2O1.ocel_object_id = O2.ocel_id
+INNER JOIN "event_CreateTransportDocument" AS E2 ON E2O1.ocel_event_id = E2.ocel_id
+) AS subqC_0_0_A), 0) >= 1
+AND O1.ocel_changed_field IS NULL

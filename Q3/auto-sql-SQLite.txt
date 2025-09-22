@@ -1,0 +1,21 @@
+SELECT O1.ocel_id AS "O1"
+,
+CASE WHEN (NOT EXISTS (SELECT 1 FROM (SELECT CASE WHEN COALESCE((SELECT COUNT(DISTINCT subqC_0_0_X.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
+E4.ocel_id AS cnt_key
+FROM "event_PayOrder" AS E4
+INNER JOIN event_object AS E2O1 ON E2O1.ocel_object_id = O1.ocel_id AND E2O1.ocel_event_id = E4.ocel_id
+WHERE strftime('%s', E4.ocel_time) - strftime('%s', E3.ocel_time) >= 0
+AND strftime('%s', E4.ocel_time) - strftime('%s', E3.ocel_time) <= 925344
+) AS subqC_0_0_X), 0) >= 1 THEN 1 ELSE 0 END AS satisfied,
+E3.ocel_id AS cnt_key
+FROM "event_ConfirmOrder" AS E3
+INNER JOIN event_object AS E2O0 ON E2O0.ocel_object_id = O1.ocel_id AND E2O0.ocel_event_id = E3.ocel_id
+) AS subqC_0_0_A WHERE subqC_0_0_A.satisfied = 0) OR NOT EXISTS (SELECT 1 FROM (SELECT CASE WHEN COALESCE((SELECT COUNT(DISTINCT subqC_0_0_Y.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
+E2.ocel_id AS cnt_key
+FROM "event_PaymentReminder" AS E2
+INNER JOIN event_object AS E2O0 ON E2O0.ocel_object_id = O1.ocel_id AND E2O0.ocel_event_id = E2.ocel_id
+) AS subqC_0_0_Y), 0) >= 1 THEN 1 ELSE 0 END AS satisfied,
+1 AS cnt_key
+FROM (SELECT 1) as dummy ) AS subqC_0_1_B WHERE subqC_0_1_B.satisfied = 0)) THEN 1 ELSE 0 END AS satisfied 
+FROM "object_Orders" AS O1
+WHERE O1.ocel_changed_field IS NULL
