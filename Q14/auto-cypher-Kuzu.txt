@@ -1,5 +1,6 @@
-MATCH (e1:placeorder)-[:E2O]->(o2:orders), (o1:customers)-[:O2O]->(o2:orders), (o1:customers)-[:O2O]->(o3:orders), (e2:placeorder)-[:E2O]->(o3:orders)
-WHERE COUNT {MATCH (e5:payorder)-[:E2O]->(o2:orders), (e6:payorder)-[:E2O]->(o3:orders)
-WHERE e5.time >= e1.time + INTERVAL('0 SECONDS') AND e5.time <= e1.time + INTERVAL('172800 SECONDS') AND e6.time >= e2.time + INTERVAL('0 SECONDS') AND e6.time <= e2.time + INTERVAL('172800 SECONDS')
-} >= 0 AND e2.time >= e1.time + INTERVAL('1 SECONDS')
-RETURN o1.id,o2.id,o3.id,e1.id,e2.id
+MATCH (e1:RegisterCustomerOrder)-[:E2O]->(o1:CustomerOrder)
+WHERE COUNT {MATCH (o1:CustomerOrder)-[:O2O]->(o2:TransportDocument), (e2:CreateTransportDocument)-[:E2O]->(o2:TransportDocument)
+WHERE COUNT {MATCH (e3:BookVehicles)-[:E2O]->(o2:TransportDocument), (e4:OrderEmptyContainers)-[:E2O]->(o2:TransportDocument), (e4:OrderEmptyContainers)-[:E2O]->(o4:Container), (o3:Truck)
+} >= 15
+} >= 1
+RETURN o1.id,e1.id

@@ -3,74 +3,84 @@
     {
       "Box": [
         {
-          "newEventVars": {},
+          "newEventVars": {
+            "0": [
+              "place order"
+            ],
+            "1": [
+              "place order"
+            ]
+          },
           "newObjectVars": {
             "1": [
-              "employees"
+              "orders"
             ],
             "0": [
               "customers"
-            ]
-          },
-          "filters": [
-            {
-              "type": "O2O",
-              "object": 0,
-              "other_object": 1,
-              "qualifier": null,
-              "filterLabel": null
-            }
-          ],
-          "sizeFilters": [
-            {
-              "type": "NumChilds",
-              "child_name": "A",
-              "min": 2,
-              "max": null
-            }
-          ],
-          "constraints": [],
-          "evVarLabels": {},
-          "obVarLabels": {},
-          "labels": []
-        },
-        [
-          1
-        ]
-      ]
-    },
-    {
-      "Box": [
-        {
-          "newEventVars": {},
-          "newObjectVars": {
+            ],
             "2": [
               "orders"
             ]
           },
           "filters": [
             {
+              "type": "O2E",
+              "object": 1,
+              "event": 0,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2O",
+              "object": 0,
+              "other_object": 1,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
               "type": "O2O",
               "object": 0,
               "other_object": 2,
               "qualifier": null,
               "filterLabel": null
+            },
+            {
+              "type": "O2E",
+              "object": 2,
+              "event": 1,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "TimeBetweenEvents",
+              "from_event": 0,
+              "to_event": 1,
+              "min_seconds": 1.0,
+              "max_seconds": null
             }
           ],
           "sizeFilters": [
             {
               "type": "NumChilds",
               "child_name": "B",
-              "min": 3,
+              "min": 0,
               "max": null
             }
           ],
-          "constraints": [],
+          "constraints": [
+            {
+              "type": "SAT",
+              "child_names": [
+                "A"
+              ]
+            }
+          ],
           "evVarLabels": {},
           "obVarLabels": {},
           "labels": []
         },
         [
+          1,
           2
         ]
       ]
@@ -78,19 +88,91 @@
     {
       "Box": [
         {
-          "newEventVars": {},
-          "newObjectVars": {
+          "newEventVars": {
             "3": [
-              "items"
+              "confirm order"
+            ],
+            "2": [
+              "confirm order"
             ]
           },
+          "newObjectVars": {},
           "filters": [
             {
-              "type": "O2O",
-              "object": 2,
-              "other_object": 3,
+              "type": "O2E",
+              "object": 1,
+              "event": 2,
               "qualifier": null,
               "filterLabel": null
+            },
+            {
+              "type": "O2E",
+              "object": 2,
+              "event": 3,
+              "qualifier": null,
+              "filterLabel": null
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [
+            {
+              "type": "Filter",
+              "filter": {
+                "type": "TimeBetweenEvents",
+                "from_event": 2,
+                "to_event": 3,
+                "min_seconds": 1.0,
+                "max_seconds": null
+              }
+            }
+          ],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        []
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "4": [
+              "pay order"
+            ],
+            "5": [
+              "pay order"
+            ]
+          },
+          "newObjectVars": {},
+          "filters": [
+            {
+              "type": "O2E",
+              "object": 1,
+              "event": 4,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "O2E",
+              "object": 2,
+              "event": 5,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "TimeBetweenEvents",
+              "from_event": 0,
+              "to_event": 4,
+              "min_seconds": 0.0,
+              "max_seconds": 172800.0
+            },
+            {
+              "type": "TimeBetweenEvents",
+              "from_event": 1,
+              "to_event": 5,
+              "min_seconds": 0.0,
+              "max_seconds": 172800.0
             }
           ],
           "sizeFilters": [],
@@ -106,17 +188,17 @@
   "edgeNames": [
     [
       [
-        1,
-        2
-      ],
-      "B"
-    ],
-    [
-      [
         0,
         1
       ],
       "A"
+    ],
+    [
+      [
+        0,
+        2
+      ],
+      "B"
     ]
   ]
 }

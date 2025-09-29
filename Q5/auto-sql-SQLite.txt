@@ -1,13 +1,27 @@
-SELECT O3.ocel_id AS "O3",O1.ocel_id AS "O1",O2.ocel_id AS "O2",E2.ocel_id AS "E2",E1.ocel_id AS "E1"
-FROM "object_Application" AS O1
-INNER JOIN object_object AS O2O0 ON O2O0.ocel_source_id = O1.ocel_id
-INNER JOIN "object_Offer" AS O2 ON O2O0.ocel_target_id = O2.ocel_id
-INNER JOIN object_object AS O2O1 ON O2O1.ocel_source_id = O1.ocel_id
-INNER JOIN "object_Offer" AS O3 ON O2O1.ocel_target_id = O3.ocel_id
+SELECT O1.ocel_id AS "O1"
+,
+CASE WHEN NOT EXISTS (SELECT 1 FROM (SELECT CASE WHEN COALESCE((SELECT COUNT(DISTINCT subqC_0_0_B.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
+(E1.ocel_id || '|' || E2.ocel_id) AS cnt_key
+FROM "event_ConfirmOrder" AS E1
+INNER JOIN event_object AS E2O0 ON E2O0.ocel_object_id = O2.ocel_id AND E2O0.ocel_event_id = E1.ocel_id
 INNER JOIN event_object AS E2O1 ON E2O1.ocel_object_id = O2.ocel_id
-INNER JOIN "event_O_Created" AS E1 ON E2O1.ocel_event_id = E1.ocel_id
-INNER JOIN event_object AS E2O2 ON E2O2.ocel_object_id = O3.ocel_id
-INNER JOIN "event_O_Created" AS E2 ON E2O2.ocel_event_id = E2.ocel_id
-WHERE O3.ocel_changed_field IS NULL
-AND O1.ocel_changed_field IS NULL
-AND O2.ocel_changed_field IS NULL
+INNER JOIN "event_PaymentReminder" AS E2 ON E2O1.ocel_event_id = E2.ocel_id
+WHERE strftime('%s', E1.ocel_time) - strftime('%s', E2.ocel_time) >= 0
+) AS subqC_0_0_B), 0) BETWEEN 0 AND 0 THEN 1 ELSE 0 END AS satisfied,
+O2.ocel_id AS cnt_key
+FROM "object_Orders" AS O2
+INNER JOIN object_object AS O2O0 ON O2O0.ocel_source_id = O1.ocel_id AND O2O0.ocel_target_id = O2.ocel_id
+WHERE COALESCE((SELECT COUNT(DISTINCT subqC_0_1_C.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
+1 AS cnt_key
+FROM (SELECT 1) as dummy WHERE COALESCE((SELECT COUNT(DISTINCT subqC_0_0_D.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
+E1.ocel_id AS cnt_key
+FROM "event_PaymentReminder" AS E1
+INNER JOIN event_object AS E2O0 ON E2O0.ocel_object_id = O2.ocel_id AND E2O0.ocel_event_id = E1.ocel_id
+) AS subqC_0_0_D), 0) >= 2
+) AS subqC_0_1_C), 0) >= 1
+AND EXISTS ( SELECT 1
+ FROM "object_Orders" AS OA0
+ WHERE OA0.ocel_id = O2.ocel_id AND OA0.price >= 1000)
+) AS subqC_0_0_A WHERE subqC_0_0_A.satisfied = 0) THEN 1 ELSE 0 END AS satisfied 
+FROM "object_Customers" AS O1
+WHERE O1.ocel_changed_field IS NULL

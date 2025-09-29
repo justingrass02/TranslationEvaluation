@@ -1,4 +1,2 @@
-MATCH (e1:RegisterCustomerOrder)-[:E2O]->(o1:CustomerOrder)
-WHERE COUNT {MATCH (o1:CustomerOrder)-[:O2O]->(o2:TransportDocument), (e2:CreateTransportDocument)-[:E2O]->(o2:TransportDocument)
-} >= 1
-RETURN o1.id,e1.id
+MATCH (o1:application)-[:O2O]->(o2:Offer), (o1:application)-[:O2O]->(o3:Offer), (e1:o_Created)-[:E2O]->(o2:Offer), (e2:o_Created)-[:E2O]->(o3:Offer)
+RETURN o2.id,o3.id,o1.id,e2.id,e1.id

@@ -1,23 +1,25 @@
-SELECT O1.ocel_id AS "O1",O2.ocel_id AS "O2",E1.ocel_id AS "E1"
+SELECT O1.ocel_id AS "O1"
 ,
-CASE WHEN COALESCE((SELECT COUNT(DISTINCT subqC_0_1_B.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
-(O3.ocel_id || '|' || E2.ocel_id) AS cnt_key
-FROM "event_ConfirmOrder" AS E2
-INNER JOIN event_object AS E2O1 ON E2O1.ocel_event_id = E2.ocel_id
-INNER JOIN "object_Orders" AS O3 ON E2O1.ocel_object_id = O3.ocel_id
-INNER JOIN object_object AS O2O1 ON O2O1.ocel_source_id = O1.ocel_id AND O2O1.ocel_target_id = O3.ocel_id
-WHERE strftime('%s', E2.ocel_time) - strftime('%s', E1.ocel_time) >= 0
-) AS subqC_0_1_B), 0) BETWEEN 0 AND 0 THEN 1 ELSE 0 END AS satisfied 
-FROM "object_Customers" AS O1
-INNER JOIN object_object AS O2O0 ON O2O0.ocel_source_id = O1.ocel_id
-INNER JOIN "object_Orders" AS O2 ON O2O0.ocel_target_id = O2.ocel_id
-INNER JOIN event_object AS E2O0 ON E2O0.ocel_object_id = O2.ocel_id
-INNER JOIN "event_PaymentReminder" AS E1 ON E2O0.ocel_event_id = E1.ocel_id
-WHERE COALESCE((SELECT COUNT(DISTINCT subqC_0_0_A.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
-E2.ocel_id AS cnt_key
-FROM "event_PaymentReminder" AS E2
-INNER JOIN event_object AS E2O1 ON E2O1.ocel_object_id = O2.ocel_id AND E2O1.ocel_event_id = E2.ocel_id
-WHERE strftime('%s', E2.ocel_time) - strftime('%s', E1.ocel_time) <= 0
-) AS subqC_0_0_A), 0) >= 2
-AND O1.ocel_changed_field IS NULL
-AND O2.ocel_changed_field IS NULL
+CASE WHEN (NOT EXISTS (SELECT 1 FROM (SELECT CASE WHEN COALESCE((SELECT COUNT(DISTINCT subqC_0_0_X.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
+E4.ocel_id AS cnt_key
+FROM "event_PlaceinStock" AS E4
+INNER JOIN event_object AS E2O1 ON E2O1.ocel_object_id = O1.ocel_id AND E2O1.ocel_event_id = E4.ocel_id
+WHERE strftime('%s', E4.ocel_time) - strftime('%s', E3.ocel_time) >= 0
+AND strftime('%s', E4.ocel_time) - strftime('%s', E3.ocel_time) <= 1905120
+) AS subqC_0_0_X), 0) >= 1 THEN 1 ELSE 0 END AS satisfied,
+E3.ocel_id AS cnt_key
+FROM "event_Weigh" AS E3
+INNER JOIN event_object AS E2O0 ON E2O0.ocel_object_id = O1.ocel_id AND E2O0.ocel_event_id = E3.ocel_id
+) AS subqC_0_0_A WHERE subqC_0_0_A.satisfied = 0) AND NOT EXISTS (SELECT 1 FROM (SELECT CASE WHEN COALESCE((SELECT COUNT(DISTINCT subqC_0_0_Y.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
+E4.ocel_id AS cnt_key
+FROM "event_Weigh" AS E4
+INNER JOIN event_object AS E2O1 ON E2O1.ocel_object_id = O1.ocel_id AND E2O1.ocel_event_id = E4.ocel_id
+WHERE strftime('%s', E4.ocel_time) - strftime('%s', E3.ocel_time) >= 0
+AND strftime('%s', E4.ocel_time) - strftime('%s', E3.ocel_time) <= 604800
+) AS subqC_0_0_Y), 0) >= 3 THEN 1 ELSE 0 END AS satisfied,
+E3.ocel_id AS cnt_key
+FROM "event_LoadtoVehicle" AS E3
+INNER JOIN event_object AS E2O0 ON E2O0.ocel_object_id = O1.ocel_id AND E2O0.ocel_event_id = E3.ocel_id
+) AS subqC_0_1_B WHERE subqC_0_1_B.satisfied = 0)) THEN 1 ELSE 0 END AS satisfied 
+FROM "object_Forklift" AS O1
+WHERE O1.ocel_changed_field IS NULL

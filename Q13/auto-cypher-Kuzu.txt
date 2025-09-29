@@ -1,5 +1,2 @@
-MATCH (o1:customers)-[:O2O]->(o2:orders), (e1:paymentreminder)-[:E2O]->(o2:orders)
-WHERE COUNT {MATCH (e2:paymentreminder)-[:E2O]->(o2:orders)
-WHERE e2.time <= e1.time + INTERVAL('0 SECONDS')
-} >= 2
-RETURN o1.id,o2.id,e1.id
+MATCH (o1:Forklift)
+RETURN o1.id

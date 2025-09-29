@@ -3,36 +3,15 @@
     {
       "Box": [
         {
-          "newEventVars": {},
+          "newEventVars": {
+            "0": [
+              "payment reminder"
+            ]
+          },
           "newObjectVars": {
             "0": [
               "customers"
-            ]
-          },
-          "filters": [],
-          "sizeFilters": [],
-          "constraints": [
-            {
-              "type": "SAT",
-              "child_names": [
-                "A"
-              ]
-            }
-          ],
-          "evVarLabels": {},
-          "obVarLabels": {},
-          "labels": []
-        },
-        [
-          1
-        ]
-      ]
-    },
-    {
-      "Box": [
-        {
-          "newEventVars": {},
-          "newObjectVars": {
+            ],
             "1": [
               "orders"
             ]
@@ -46,24 +25,18 @@
               "filterLabel": null
             },
             {
-              "type": "ObjectAttributeValueFilter",
+              "type": "O2E",
               "object": 1,
-              "attribute_name": "price",
-              "at_time": {
-                "type": "Sometime"
-              },
-              "value_filter": {
-                "type": "Integer",
-                "min": 1000,
-                "max": null
-              }
+              "event": 0,
+              "qualifier": null,
+              "filterLabel": null
             }
           ],
           "sizeFilters": [
             {
               "type": "NumChilds",
-              "child_name": "C",
-              "min": 1,
+              "child_name": "A",
+              "min": 2,
               "max": null
             }
           ],
@@ -83,8 +56,8 @@
           "labels": []
         },
         [
-          2,
-          3
+          1,
+          2
         ]
       ]
     },
@@ -94,20 +67,10 @@
           "newEventVars": {
             "1": [
               "payment reminder"
-            ],
-            "0": [
-              "confirm order"
             ]
           },
           "newObjectVars": {},
           "filters": [
-            {
-              "type": "O2E",
-              "object": 1,
-              "event": 0,
-              "qualifier": null,
-              "filterLabel": null
-            },
             {
               "type": "O2E",
               "object": 1,
@@ -117,10 +80,10 @@
             },
             {
               "type": "TimeBetweenEvents",
-              "from_event": 1,
-              "to_event": 0,
-              "min_seconds": 0.0,
-              "max_seconds": null
+              "from_event": 0,
+              "to_event": 1,
+              "min_seconds": null,
+              "max_seconds": 0.0
             }
           ],
           "sizeFilters": [],
@@ -135,43 +98,37 @@
     {
       "Box": [
         {
-          "newEventVars": {},
-          "newObjectVars": {},
-          "filters": [],
-          "sizeFilters": [
-            {
-              "type": "NumChilds",
-              "child_name": "D",
-              "min": 2,
-              "max": null
-            }
-          ],
-          "constraints": [],
-          "evVarLabels": {},
-          "obVarLabels": {},
-          "labels": []
-        },
-        [
-          4
-        ]
-      ]
-    },
-    {
-      "Box": [
-        {
           "newEventVars": {
-            "0": [
-              "payment reminder"
+            "1": [
+              "confirm order"
             ]
           },
-          "newObjectVars": {},
+          "newObjectVars": {
+            "2": [
+              "orders"
+            ]
+          },
           "filters": [
             {
               "type": "O2E",
-              "object": 1,
-              "event": 0,
+              "object": 2,
+              "event": 1,
               "qualifier": null,
               "filterLabel": null
+            },
+            {
+              "type": "O2O",
+              "object": 0,
+              "other_object": 2,
+              "qualifier": null,
+              "filterLabel": null
+            },
+            {
+              "type": "TimeBetweenEvents",
+              "from_event": 0,
+              "to_event": 1,
+              "min_seconds": 0.0,
+              "max_seconds": null
             }
           ],
           "sizeFilters": [],
@@ -187,13 +144,6 @@
   "edgeNames": [
     [
       [
-        1,
-        2
-      ],
-      "B"
-    ],
-    [
-      [
         0,
         1
       ],
@@ -201,17 +151,10 @@
     ],
     [
       [
-        3,
-        4
+        0,
+        2
       ],
-      "D"
-    ],
-    [
-      [
-        1,
-        3
-      ],
-      "C"
+      "B"
     ]
   ]
 }

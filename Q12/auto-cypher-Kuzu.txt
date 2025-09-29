@@ -1,2 +1,5 @@
-MATCH (e1:placeorder)-[:E2O]->(o1:orders), (o1:orders)-[:O2O]->(o3:items), (e1:placeorder)-[:E2O]->(o4:customers), (o4:customers)-[:O2O]->(o2:employees), (e2:pickitem)-[:E2O]->(o3:items)
-RETURN o1.id,o4.id,o2.id,o3.id,e1.id,e2.id
+MATCH (e1:A_CreateApplication)-[:E2O]->(o1:application)
+WHERE COUNT {MATCH (e2:A_Submitted)-[:E2O]->(o1:application)
+WHERE e2.time >= e1.time + INTERVAL('0 SECONDS') AND e2.time <= e1.time + INTERVAL('1 SECONDS')
+} >= 1
+RETURN o1.id,e1.id

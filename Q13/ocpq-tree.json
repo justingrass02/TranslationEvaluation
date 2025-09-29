@@ -3,52 +3,21 @@
     {
       "Box": [
         {
-          "newEventVars": {
-            "0": [
-              "payment reminder"
-            ]
-          },
+          "newEventVars": {},
           "newObjectVars": {
             "0": [
-              "customers"
-            ],
-            "1": [
-              "orders"
+              "Forklift"
             ]
           },
-          "filters": [
-            {
-              "type": "O2O",
-              "object": 0,
-              "other_object": 1,
-              "qualifier": null,
-              "filterLabel": null
-            },
-            {
-              "type": "O2E",
-              "object": 1,
-              "event": 0,
-              "qualifier": null,
-              "filterLabel": null
-            }
-          ],
-          "sizeFilters": [
-            {
-              "type": "NumChilds",
-              "child_name": "A",
-              "min": 2,
-              "max": null
-            }
-          ],
+          "filters": [],
+          "sizeFilters": [],
           "constraints": [
             {
-              "type": "SizeFilter",
-              "filter": {
-                "type": "NumChilds",
-                "child_name": "B",
-                "min": 0,
-                "max": 0
-              }
+              "type": "AND",
+              "child_names": [
+                "A",
+                "B"
+              ]
             }
           ],
           "evVarLabels": {},
@@ -57,6 +26,45 @@
         },
         [
           1,
+          3
+        ]
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "2": [
+              "Weigh"
+            ]
+          },
+          "newObjectVars": {},
+          "filters": [
+            {
+              "type": "O2E",
+              "object": 0,
+              "event": 2,
+              "qualifier": null,
+              "filterLabel": null
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [
+            {
+              "type": "SizeFilter",
+              "filter": {
+                "type": "NumChilds",
+                "child_name": "X",
+                "min": 1,
+                "max": null
+              }
+            }
+          ],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        [
           2
         ]
       ]
@@ -65,25 +73,25 @@
       "Box": [
         {
           "newEventVars": {
-            "1": [
-              "payment reminder"
+            "3": [
+              "Place in Stock"
             ]
           },
           "newObjectVars": {},
           "filters": [
             {
               "type": "O2E",
-              "object": 1,
-              "event": 1,
+              "object": 0,
+              "event": 3,
               "qualifier": null,
               "filterLabel": null
             },
             {
               "type": "TimeBetweenEvents",
-              "from_event": 0,
-              "to_event": 1,
-              "min_seconds": null,
-              "max_seconds": 0.0
+              "from_event": 2,
+              "to_event": 3,
+              "min_seconds": 0.0,
+              "max_seconds": 1905120.0
             }
           ],
           "sizeFilters": [],
@@ -99,36 +107,64 @@
       "Box": [
         {
           "newEventVars": {
-            "1": [
-              "confirm order"
-            ]
-          },
-          "newObjectVars": {
             "2": [
-              "orders"
+              "Load to Vehicle"
             ]
           },
+          "newObjectVars": {},
           "filters": [
             {
               "type": "O2E",
-              "object": 2,
-              "event": 1,
+              "object": 0,
+              "event": 2,
               "qualifier": null,
               "filterLabel": null
-            },
+            }
+          ],
+          "sizeFilters": [],
+          "constraints": [
             {
-              "type": "O2O",
+              "type": "SizeFilter",
+              "filter": {
+                "type": "NumChilds",
+                "child_name": "Y",
+                "min": 3,
+                "max": null
+              }
+            }
+          ],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        [
+          4
+        ]
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {
+            "3": [
+              "Weigh"
+            ]
+          },
+          "newObjectVars": {},
+          "filters": [
+            {
+              "type": "O2E",
               "object": 0,
-              "other_object": 2,
+              "event": 3,
               "qualifier": null,
               "filterLabel": null
             },
             {
               "type": "TimeBetweenEvents",
-              "from_event": 0,
-              "to_event": 1,
+              "from_event": 2,
+              "to_event": 3,
               "min_seconds": 0.0,
-              "max_seconds": null
+              "max_seconds": 604800.0
             }
           ],
           "sizeFilters": [],
@@ -145,16 +181,30 @@
     [
       [
         0,
+        3
+      ],
+      "B"
+    ],
+    [
+      [
+        1,
+        2
+      ],
+      "X"
+    ],
+    [
+      [
+        0,
         1
       ],
       "A"
     ],
     [
       [
-        0,
-        2
+        3,
+        4
       ],
-      "B"
+      "Y"
     ]
   ]
 }

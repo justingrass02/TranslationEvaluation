@@ -3,21 +3,56 @@
     {
       "Box": [
         {
-          "newEventVars": {
-            "0": [
-              "O_Created"
-            ]
-          },
+          "newEventVars": {},
           "newObjectVars": {
+            "1": [
+              "employees"
+            ],
             "0": [
-              "Offer"
+              "customers"
             ]
           },
           "filters": [
             {
-              "type": "O2E",
+              "type": "O2O",
               "object": 0,
-              "event": 0,
+              "other_object": 1,
+              "qualifier": null,
+              "filterLabel": null
+            }
+          ],
+          "sizeFilters": [
+            {
+              "type": "NumChilds",
+              "child_name": "A",
+              "min": 2,
+              "max": null
+            }
+          ],
+          "constraints": [],
+          "evVarLabels": {},
+          "obVarLabels": {},
+          "labels": []
+        },
+        [
+          1
+        ]
+      ]
+    },
+    {
+      "Box": [
+        {
+          "newEventVars": {},
+          "newObjectVars": {
+            "2": [
+              "orders"
+            ]
+          },
+          "filters": [
+            {
+              "type": "O2O",
+              "object": 0,
+              "other_object": 2,
               "qualifier": null,
               "filterLabel": null
             }
@@ -26,24 +61,16 @@
             {
               "type": "NumChilds",
               "child_name": "B",
-              "min": 1,
+              "min": 3,
               "max": null
             }
           ],
-          "constraints": [
-            {
-              "type": "SAT",
-              "child_names": [
-                "A"
-              ]
-            }
-          ],
+          "constraints": [],
           "evVarLabels": {},
           "obVarLabels": {},
           "labels": []
         },
         [
-          1,
           2
         ]
       ]
@@ -51,64 +78,19 @@
     {
       "Box": [
         {
-          "newEventVars": {
-            "1": [
-              "O_Sent (mail and online)"
+          "newEventVars": {},
+          "newObjectVars": {
+            "3": [
+              "items"
             ]
           },
-          "newObjectVars": {},
           "filters": [
             {
-              "type": "O2E",
-              "object": 0,
-              "event": 1,
+              "type": "O2O",
+              "object": 2,
+              "other_object": 3,
               "qualifier": null,
               "filterLabel": null
-            }
-          ],
-          "sizeFilters": [],
-          "constraints": [
-            {
-              "type": "Filter",
-              "filter": {
-                "type": "TimeBetweenEvents",
-                "from_event": 0,
-                "to_event": 1,
-                "min_seconds": 0.0,
-                "max_seconds": 60.0
-              }
-            }
-          ],
-          "evVarLabels": {},
-          "obVarLabels": {},
-          "labels": []
-        },
-        []
-      ]
-    },
-    {
-      "Box": [
-        {
-          "newEventVars": {
-            "1": [
-              "O_Returned"
-            ]
-          },
-          "newObjectVars": {},
-          "filters": [
-            {
-              "type": "O2E",
-              "object": 0,
-              "event": 1,
-              "qualifier": null,
-              "filterLabel": null
-            },
-            {
-              "type": "TimeBetweenEvents",
-              "from_event": 0,
-              "to_event": 1,
-              "min_seconds": 259200.0,
-              "max_seconds": 432000.0
             }
           ],
           "sizeFilters": [],
@@ -124,17 +106,17 @@
   "edgeNames": [
     [
       [
-        0,
-        1
+        1,
+        2
       ],
-      "A"
+      "B"
     ],
     [
       [
         0,
-        2
+        1
       ],
-      "B"
+      "A"
     ]
   ]
 }

@@ -1,18 +1,16 @@
-SELECT O1.ocel_id AS "O1",E1.ocel_id AS "E1"
-,
-CASE WHEN (COALESCE((SELECT COUNT(*) FROM (SELECT CASE WHEN EPOCH(E2.ocel_time) - EPOCH(E1.ocel_time) >= 0 AND EPOCH(E2.ocel_time) - EPOCH(E1.ocel_time) <= 3024000 THEN 1 ELSE 0 END AS satisfied,
-E2.ocel_id AS cnt_key
-FROM "event_A_Cancelled" AS E2
-INNER JOIN event_object AS E2O1 ON E2O1.ocel_object_id = O1.ocel_id AND E2O1.ocel_event_id = E2.ocel_id
-) AS subqC_0_1_B WHERE subqC_0_1_B.satisfied = 1), 0) >= 1) THEN 1 ELSE 0 END AS satisfied 
-FROM "event_A_Create Application" AS E1
+SELECT O2.ocel_id AS "O2",O3.ocel_id AS "O3",O4.ocel_id AS "O4",O1.ocel_id AS "O1",E1.ocel_id AS "E1",E2.ocel_id AS "E2"
+FROM "event_Place Order" AS E1
 INNER JOIN event_object AS E2O0 ON E2O0.ocel_event_id = E1.ocel_id
-INNER JOIN "object_Application" AS O1 ON E2O0.ocel_object_id = O1.ocel_id
-WHERE COALESCE((SELECT COUNT(DISTINCT subqC_0_0_A.cnt_key) FROM (SELECT CASE WHEN EPOCH(E2.ocel_time) - EPOCH(E1.ocel_time) >= 0 AND EPOCH(E2.ocel_time) - EPOCH(E1.ocel_time) <= 1 THEN 1 ELSE 0 END AS satisfied,
-E2.ocel_id AS cnt_key
-FROM "event_A_Submitted" AS E2
-INNER JOIN event_object AS E2O1 ON E2O1.ocel_object_id = O1.ocel_id AND E2O1.ocel_event_id = E2.ocel_id
-WHERE EPOCH(E2.ocel_time) - EPOCH(E1.ocel_time) >= 0
-AND EPOCH(E2.ocel_time) - EPOCH(E1.ocel_time) <= 1
-) AS subqC_0_0_A), 0) >= 1
+INNER JOIN "object_Orders" AS O1 ON E2O0.ocel_object_id = O1.ocel_id
+INNER JOIN object_object AS O2O0 ON O2O0.ocel_source_id = O1.ocel_id
+INNER JOIN "object_Items" AS O3 ON O2O0.ocel_target_id = O3.ocel_id
+INNER JOIN event_object AS E2O1 ON E2O1.ocel_event_id = E1.ocel_id
+INNER JOIN "object_Customers" AS O4 ON E2O1.ocel_object_id = O4.ocel_id
+INNER JOIN object_object AS O2O1 ON O2O1.ocel_source_id = O4.ocel_id
+INNER JOIN "object_Employees" AS O2 ON O2O1.ocel_target_id = O2.ocel_id
+INNER JOIN event_object AS E2O2 ON E2O2.ocel_object_id = O3.ocel_id
+INNER JOIN "event_Pick Item" AS E2 ON E2O2.ocel_event_id = E2.ocel_id
+WHERE O2.ocel_changed_field IS NULL
+AND O3.ocel_changed_field IS NULL
+AND O4.ocel_changed_field IS NULL
 AND O1.ocel_changed_field IS NULL

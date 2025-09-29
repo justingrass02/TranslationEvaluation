@@ -1,12 +1,13 @@
-SELECT O1.ocel_id AS "O1",E1.ocel_id AS "E1"
-FROM "event_RegisterCustomerOrder" AS E1
-INNER JOIN event_object AS E2O0 ON E2O0.ocel_event_id = E1.ocel_id
-INNER JOIN "object_CustomerOrder" AS O1 ON E2O0.ocel_object_id = O1.ocel_id
-WHERE COALESCE((SELECT COUNT(DISTINCT subqC_0_0_A.cnt_key) FROM (SELECT CASE WHEN True THEN 1 ELSE 0 END AS satisfied,
-(O2.ocel_id || '|' || E2.ocel_id) AS cnt_key
-FROM "object_TransportDocument" AS O2
-INNER JOIN object_object AS O2O0 ON O2O0.ocel_source_id = O1.ocel_id AND O2O0.ocel_target_id = O2.ocel_id
+SELECT O3.ocel_id AS "O3",O1.ocel_id AS "O1",O2.ocel_id AS "O2",E2.ocel_id AS "E2",E1.ocel_id AS "E1"
+FROM "object_Application" AS O1
+INNER JOIN object_object AS O2O0 ON O2O0.ocel_source_id = O1.ocel_id
+INNER JOIN "object_Offer" AS O2 ON O2O0.ocel_target_id = O2.ocel_id
+INNER JOIN object_object AS O2O1 ON O2O1.ocel_source_id = O1.ocel_id
+INNER JOIN "object_Offer" AS O3 ON O2O1.ocel_target_id = O3.ocel_id
 INNER JOIN event_object AS E2O1 ON E2O1.ocel_object_id = O2.ocel_id
-INNER JOIN "event_CreateTransportDocument" AS E2 ON E2O1.ocel_event_id = E2.ocel_id
-) AS subqC_0_0_A), 0) >= 1
+INNER JOIN "event_O_Created" AS E1 ON E2O1.ocel_event_id = E1.ocel_id
+INNER JOIN event_object AS E2O2 ON E2O2.ocel_object_id = O3.ocel_id
+INNER JOIN "event_O_Created" AS E2 ON E2O2.ocel_event_id = E2.ocel_id
+WHERE O3.ocel_changed_field IS NULL
 AND O1.ocel_changed_field IS NULL
+AND O2.ocel_changed_field IS NULL
